@@ -22,4 +22,8 @@ spec:
       # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
       # Example format: mlflow-artifacts:/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model
       storageUri: "mlflow-artifacts:/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model" 
+      # Add MLflow tracking server location for model download
+      env:
+        - name: MLFLOW_TRACKING_URI
+          value: http://mlflow-service.mlops-course.svc.cluster.local:5000
 
