@@ -1,0 +1,25 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "vae-fraud-detector"
+  # MUST match your student ID
+  namespace: "rogelio-andrade" 
+spec:
+  predictor:
+    minReplicas: 1
+    maxReplicas: 1
+    model:
+      modelFormat:
+        name: tensorflow
+      # You MUST specify resource limits, otherwise your deployment will be rejected by the namespace quota
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+      # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
+      # Example format: mlflow-artifacts:/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model
+      storageUri: "mlflow-artifacts:/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model" 
+
