@@ -22,4 +22,4 @@ spec:
           memory: "2Gi"
       # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
       # Example format: mlflow-artifacts:/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model
-      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts/model" 
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/0/f7ad2a8acf204a66a0ba9aec7fcf9afa/artifacts" 
