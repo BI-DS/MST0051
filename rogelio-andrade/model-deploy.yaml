@@ -14,6 +14,8 @@ spec:
       operator: "Equal"
       value: "lab2pool"
       effect: "NoSchedule"
+    nodeSelector:
+      agentpool: "lab2pool"
     model:
       modelFormat:
         name: tensorflow
