@@ -9,6 +9,11 @@ spec:
     serviceAccountName: kserve-sa
     minReplicas: 1
     maxReplicas: 1
+    tolerations:
+    - key: "reservedFor"
+      operator: "Equal"
+      value: "lab2pool"
+      effect: "NoSchedule"
     model:
       modelFormat:
         name: tensorflow
