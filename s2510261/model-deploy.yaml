@@ -1,0 +1,35 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "vae-fraud-detector"
+  # MUST match your student ID
+  namespace: "s2510261"
+spec:
+  predictor:
+    serviceAccountName: kserve-sa
+    minReplicas: 1
+    maxReplicas: 1
+    tolerations:
+    - key: "reservedFor"
+      operator: "Equal"
+      value: "lab2pool"
+      effect: "NoSchedule"
+    nodeSelector:
+      agentpool: "lab2pool"
+    model:
+      modelFormat:
+        name: tensorflow
+      # You MUST specify resource limits, otherwise your deployment will be rejected by the namespace quota
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+      # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
+
+      # Construct the Azure Blob URI by combining the Azure prefix with your MLflow artifact path
+      # Example: https://mlopsartifacts2026.blob.core.windows.net/ + mlflow-artifacts/1/.../artifacts/model
+
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/30/6b700f72d78e44b1a6ac9b33a96c3f5f/artifacts/model"
