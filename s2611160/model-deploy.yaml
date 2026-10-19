@@ -3,7 +3,7 @@ kind: "InferenceService"
 metadata:
   name: "vae-fraud-detector"
   # MUST match your student ID
-  namespace: "s2612053" 
+  namespace: "s2611160" 
 spec:
   predictor:
     serviceAccountName: kserve-sa
