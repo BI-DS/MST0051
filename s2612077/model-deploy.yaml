@@ -1,0 +1,41 @@
+# Which API and resource type: a KServe model deployment, not a plain web app
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+
+metadata:
+  # Name of the deployment; becomes part of the endpoint URL
+  name: "vae-fraud-detector"
+  # Must equal the student ID: this is the isolated namespace ArgoCD deploys into
+  namespace: "s2612077"
+
+spec:
+  predictor:
+    # Service account holding the SAS token that lets the pod download from private Azure storage
+    serviceAccountName: kserve-sa
+    # Exactly one pod, no autoscaling
+    minReplicas: 1
+    maxReplicas: 1
+    # Permission to run on the tainted lab2pool nodes...
+    tolerations:
+    - key: "reservedFor"
+      operator: "Equal"
+      value: "lab2pool"
+      effect: "NoSchedule"
+    # ...and the instruction to actually run there
+    nodeSelector:
+      agentpool: "lab2pool"
+    model:
+      # KServe starts a prebuilt TensorFlow Serving container, no Dockerfile needed
+      modelFormat:
+        name: tensorflow
+      # Mandatory: the namespace quota rejects pods without CPU/memory settings
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+      # Model folder in the MLflow artifact store (experiment 27, run cf1e2d6a...).
+      # Ends at /model, so TF Serving finds the numbered version folder 1/ inside it
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/27/cf1e2d6a253f43fc85605d38cd419334/artifacts/model"
