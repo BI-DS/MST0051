@@ -1,0 +1,29 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "vae-fraud-detector"
+  # MUST match your student ID
+  namespace: "s2611160" 
+spec:
+  predictor:
+    serviceAccountName: kserve-sa
+    minReplicas: 1
+    maxReplicas: 1
+    tolerations:
+    - key: "reservedFor"
+      operator: "Equal"
+      value: "lab2pool"
+      effect: "NoSchedule"
+    nodeSelector:
+      agentpool: "lab2pool"
+    model:
+      modelFormat:
+        name: tensorflow
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/34/93eaa55cb8f5434d9acc8206f407bd17/artifacts/model"
