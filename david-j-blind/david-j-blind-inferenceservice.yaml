@@ -6,7 +6,7 @@ metadata:
   namespace: "david-j-blind" 
 spec:
   predictor:
-    #canaryTrafficPercent: 20 
+    canaryTrafficPercent: 20 
     serviceAccountName: kserve-sa
     minReplicas: 1
     maxReplicas: 1
