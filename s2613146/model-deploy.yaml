@@ -2,10 +2,10 @@
 kind: "InferenceService"
 metadata:
   name: "vae-fraud-detector"
-  # MUST match your student ID
   namespace: "s2613146" 
 spec:
   predictor:
+    canaryTrafficPercent: 20    # NEW : Route 20% traffic to Canary
     serviceAccountName: kserve-sa
     minReplicas: 1
     maxReplicas: 1
@@ -19,18 +19,14 @@ spec:
     model:
       modelFormat:
         name: tensorflow
-      # You MUST specify resource limits, otherwise your deployment will be rejected by the namespace quota
-      resources:
         requests:
           cpu: "500m"
           memory: "1Gi"
         limits:
           cpu: "1"
           memory: "2Gi"
-      # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
       serviceAccountName: kserve-sa
 
-      # Construct the Azure Blob URI by combining the Azure prefix with your MLflow artifact path
-      # Example: https://mlopsartifacts2026.blob.core.windows.net/ + mlflow-artifacts/1/.../artifacts/model
-
-      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/45/23b782aa4e0642ef875359820efb4766/artifacts/model"
+      # UPDATED : Point to NEW MLFlow ID ,     and remember to REMOVE ":"
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/45/730eac6e22a641d8b4d16dce9eef700a/artifacts/model"
+                                                                                     
