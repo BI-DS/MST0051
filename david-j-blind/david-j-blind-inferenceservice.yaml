@@ -1,0 +1,35 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "vae-fraud-detector"
+  # MUST match your student ID
+  namespace: "david-j-blind" 
+spec:
+  predictor:
+    canaryTrafficPercent: 20 
+    serviceAccountName: kserve-sa
+    minReplicas: 1
+    maxReplicas: 1
+    tolerations:
+    - key: "reservedFor"
+      operator: "Equal"
+      value: "lab2pool"
+      effect: "NoSchedule"
+    nodeSelector:
+      agentpool: "lab2pool"
+    model:
+      modelFormat:
+        name: tensorflow
+      # You MUST specify resource limits, otherwise your deployment will be rejected by the namespace quota
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+      # IMPORTANT: Copy the "Full Path" from the MLflow UI Artifacts section.
+      # Example format: mlflow-artifacts/11/af9890274d23448ca2c65e7c7fffca19/artifacts/model
+      # new canary ID: c66caaf65d8c453280adb40bae2182e1
+      # mlflow-artifacts:/11/c66caaf65d8c453280adb40bae2182e1/artifacts/model
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/11/c66caaf65d8c453280adb40bae2182e1/artifacts/model" 
