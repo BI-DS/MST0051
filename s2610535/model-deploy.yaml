@@ -3,7 +3,7 @@ kind: "InferenceService"
 metadata:
   name: "vae-fraud-detector"
   # MUST match your student ID
-  namespace: "s2612053" 
+  namespace: "s2610535" 
 spec:
   predictor:
     serviceAccountName: kserve-sa
@@ -32,4 +32,6 @@ spec:
       # Construct the Azure Blob URI by combining the Azure prefix with your MLflow artifact path
       # Example: https://mlopsartifacts2026.blob.core.windows.net/ + mlflow-artifacts/1/.../artifacts/model
 
-      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts:/29/de2897e42d914d08836e1f19dda5a85c/artifacts/model"
+      
+
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/29/5df26ac15cdb4bef9a56433b0553bad3/artifacts/model"
