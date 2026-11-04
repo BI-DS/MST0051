@@ -6,6 +6,7 @@ metadata:
   namespace: "s2612053" 
 spec:
   predictor:
+    canaryTrafficPercent: 20
     serviceAccountName: kserve-sa
     minReplicas: 1
     maxReplicas: 1
@@ -32,4 +33,4 @@ spec:
       # Construct the Azure Blob URI by combining the Azure prefix with your MLflow artifact path
       # Example: https://mlopsartifacts2026.blob.core.windows.net/ + mlflow-artifacts/1/.../artifacts/model
 
-      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/9/b8a7009b99db46cbb7b2db629ac2d219/artifacts/model"
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/9/d51bd6ad53444d6da0e18d806720ac04/artifacts/model"
