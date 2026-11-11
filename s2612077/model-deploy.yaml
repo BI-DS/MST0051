@@ -10,6 +10,8 @@ metadata:
 
 spec:
   predictor:
+    # NEW: canary release, 20% of the traffic goes to the new model, 80% stays on the previous revision (stable)
+    canaryTrafficPercent: 20
     # Service account holding the SAS token that lets the pod download from private Azure storage
     serviceAccountName: kserve-sa
     # Exactly one pod, no autoscaling
@@ -36,6 +38,7 @@ spec:
         limits:
           cpu: "1"
           memory: "2Gi"
-      # Model folder in the MLflow artifact store (experiment 27, run cf1e2d6a...).
+      # Model folder in the MLflow artifact store (experiment 27). UPDATED: now the canary run 4f5db8d6...
+      # (1 hidden layer, 14 features); the stable model was cf1e2d6a...
       # Ends at /model, so TF Serving finds the numbered version folder 1/ inside it
-      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/27/cf1e2d6a253f43fc85605d38cd419334/artifacts/model"
+      storageUri: "https://mlopsartifacts2026.blob.core.windows.net/mlflow-artifacts/27/4f5db8d689cb47d2af0494274533fe5b/artifacts/model"
